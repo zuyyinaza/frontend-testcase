@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Person</title>
+    <!-- Bootstrap CSS 4.3.1 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- VueJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="container mt-4" id="app">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Image</th>
+            <th scope="col">Profession</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="person, index in person">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ person.name }}</td>
+            <td>{{ person.phone }}</td>
+            <td>{{ person.image }}</td>
+            <td>{{ person.profession_id }}</td>
+            <td>{{ person.created_at }}</td>
+            <td>{{ person.updated_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          person: [],
+        },
+        mounted: function () {
+          axios
+            .get("https://test-case.fe.can.co.id/api/person")
+            .then((response) => {
+              this.person = response.data.data;
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+      });
+    </script>
+  </body>
+</html>

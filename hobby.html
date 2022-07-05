@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hobby</title>
+    <!-- Bootstrap CSS 4.3.1 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- VueJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="container mt-4" id="app">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="hobby, index in hobby">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ hobby.name }}</td>
+            <td>{{ hobby.created_at }}</td>
+            <td>{{ hobby.updated_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          hobby: [],
+        },
+        mounted: function () {
+          axios
+            .get("https://test-case.fe.can.co.id/api/hobby?hobby_id=3")
+            .then((response) => {
+              this.hobby = response.data.data;
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        },
+      });
+    </script>
+  </body>
+</html>
